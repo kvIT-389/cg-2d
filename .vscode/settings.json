@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c"
+    },
+    "cSpell.words": [
+        "EVENTHANDLER",
+        "GL_MODELVIEW",
+        "glRotatef",
+        "glScalef",
+        "glTranslatef"
+    ]
+}
