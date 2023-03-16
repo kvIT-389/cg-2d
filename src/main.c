@@ -2,18 +2,8 @@
 #include <GL/glut.h>
 
 #include "display.h"
+#include "update.h"
 
-
-const unsigned int update_delay = 10;
-
-
-void update(int value)
-{
-    angle = (int)(angle + 1.0) % 360;
-
-    glutPostRedisplay();
-    glutTimerFunc(update_delay, update, value);
-}
 
 int main(int argc, char **argv)
 {
@@ -26,7 +16,8 @@ int main(int argc, char **argv)
     glutCreateWindow("Rotating hexagon");
 
     glutDisplayFunc(display);
-    glutTimerFunc(update_delay, update, 0);
+
+    runUpdateLoop();
 
     glutMainLoop();
 
