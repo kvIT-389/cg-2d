@@ -5,21 +5,21 @@
 const unsigned int update_delay = 10;
 
 
-float angle = 0.0;
+double angle = 0.0;
 
 void drawHexagon()
 {
     glPushMatrix();
 
-    glRotatef(angle, 0.0, 0.0, 1.0);
+    glRotated(angle, 0.0, 0.0, 1.0);
 
     glBegin(GL_POLYGON);
-        glColor3ub(0xff, 0x00, 0x00);  glVertex2f( 1.0f,  0.0f);
-        glColor3ub(0x7f, 0x7f, 0x00);  glVertex2f( 0.5f,  0.87f);
-        glColor3ub(0x00, 0xff, 0x00);  glVertex2f(-0.5f,  0.87f);
-        glColor3ub(0x00, 0x7f, 0x7f);  glVertex2f(-1.0f,  0.0f);
-        glColor3ub(0x00, 0x00, 0xff);  glVertex2f(-0.5f, -0.87f);
-        glColor3ub(0x7f, 0x00, 0x7f);  glVertex2f( 0.5f, -0.87f);
+        glColor3ub(0xff, 0x00, 0x00);  glVertex2d( 1.0,  0.0);
+        glColor3ub(0x7f, 0x7f, 0x00);  glVertex2d( 0.5,  0.87);
+        glColor3ub(0x00, 0xff, 0x00);  glVertex2d(-0.5,  0.87);
+        glColor3ub(0x00, 0x7f, 0x7f);  glVertex2d(-1.0,  0.0);
+        glColor3ub(0x00, 0x00, 0xff);  glVertex2d(-0.5, -0.87);
+        glColor3ub(0x7f, 0x00, 0x7f);  glVertex2d( 0.5, -0.87);
     glEnd();
 
     glPopMatrix();
@@ -39,7 +39,7 @@ void display()
 
 void update(int value)
 {
-    angle = (int)(angle + 1.0f) % 360;
+    angle = (int)(angle + 1.0) % 360;
 
     glutPostRedisplay();
     glutTimerFunc(update_delay, update, value);
