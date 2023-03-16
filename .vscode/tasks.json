@@ -3,15 +3,15 @@
         {
             "type": "cppbuild",
             "label": "OpenGL gcc build project",
-            "command": "/usr/bin/gcc",
+            "command": "gcc",
             "args": [
                 "-fdiagnostics-color=always",
                 // Output file name
-                "-o", "${workspaceFolder}/build/main.out",
+                "-o", "${cwd}/build/main.out",
                 // Files to compile
-                "-g", "${workspaceFolder}/src/*.c",
+                "-g", "${cwd}/src/*.c",
                 // Include path
-                "-I${workspaceFolder}/include",
+                "-I${cwd}/include",
                 // Libraries
                 "-lGL", "-lGLU", "-lglut"
             ],
