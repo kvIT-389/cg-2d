@@ -32,9 +32,9 @@ void display(void)
     }
 }
 
-void reshape(_width_t w, _height_t h)
+void reshape(_size_t width, _size_t height)
 {
-    glViewport(0, 0, w, h);
+    glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 }

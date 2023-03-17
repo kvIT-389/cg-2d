@@ -11,10 +11,14 @@ typedef uint32_t _time_t;
 extern const _time_t update_delay;
 
 
-/* Main update function */
+/**
+ * Main update function.
+ */
 void update(int value);
 
-/* Run main update loop */
+/**
+ * Run main update loop.
+ */
 void runUpdateLoop(void);
 
 

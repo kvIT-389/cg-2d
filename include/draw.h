@@ -6,10 +6,14 @@ extern double angle;
 extern double scale;
 
 
-/* Current window main drawing function */
+/**
+ * Current window main drawing function.
+ */
 void draw(void);
 
-/* Draws RGB hexagon rotated on angle */
+/**
+ * Draws RGB hexagon rotated on angle.
+ */
 void drawHexagon(void);
 
 
