@@ -51,6 +51,22 @@ void mouse(
 void keyboard(_key_t key, int32_t x, int32_t y)
 {
     switch (key) {
+        case '-':
+            scale -= 0.05;
+            if (scale < 0.0) {
+                scale = 0.0;
+            }
+
+            break;
+
+        case '+':
+            scale += 0.05;
+            if (scale > 1.0) {
+                scale = 1.0;
+            }
+
+            break;
+
         case 'q':
             glutDestroyWindow(glutGetWindow());
             break;

@@ -5,6 +5,7 @@
 
 
 double angle = 0.0;
+double scale = 1.0;
 
 
 void draw(void)
@@ -17,6 +18,7 @@ void drawHexagon(void)
     glPushMatrix();
 
     glRotated(angle, 0.0, 0.0, 1.0);
+    glScaled(scale, scale, 1.0);
 
     glBegin(GL_POLYGON);
         glColor3ub(0xff, 0x00, 0x00);  glVertex2d( 1.0,  0.0);

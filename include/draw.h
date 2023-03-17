@@ -3,6 +3,7 @@
 
 
 extern double angle;
+extern double scale;
 
 
 /* Current window main drawing function */
