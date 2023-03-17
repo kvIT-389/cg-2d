@@ -5,7 +5,10 @@
 #include <stdint.h>
 
 
-extern const uint32_t update_delay;
+typedef uint32_t _time_t;
+
+
+extern const _time_t update_delay;
 
 
 /* Main update function */

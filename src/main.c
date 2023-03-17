@@ -1,7 +1,6 @@
-#include <GL/gl.h>
 #include <GL/glut.h>
 
-#include "display.h"
+#include "callback.h"
 #include "update.h"
 
 
@@ -15,8 +14,7 @@ int main(int argc, char **argv)
 
     glutCreateWindow("Rotating hexagon");
 
-    glutDisplayFunc(display);
-
+    initCallbacks();
     runUpdateLoop();
 
     glutMainLoop();
