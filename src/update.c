@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 
 #include "update.h"
+#include "types.h"
 #include "draw.h"
 
 

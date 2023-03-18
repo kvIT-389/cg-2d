@@ -42,13 +42,13 @@ void reshape(_size_t width, _size_t height)
 void mouse(
     _mouse_button_t button,
     _mouse_button_state_t state,
-    int32_t x, int32_t y
+    _coord_t x, _coord_t y
 )
 {
     /* Code of mouse callback */
 }
 
-void keyboard(_key_t key, int32_t x, int32_t y)
+void keyboard(_key_t key, _coord_t x, _coord_t y)
 {
     switch (key) {
         case '-':
@@ -75,7 +75,7 @@ void keyboard(_key_t key, int32_t x, int32_t y)
 
 void specialKeyboard(
     _special_key_t key,
-    int32_t x, int32_t y
+    _coord_t x, _coord_t y
 )
 {
     /* Code of special keyboard callback */
