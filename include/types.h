@@ -5,6 +5,8 @@
 #include <stdint.h>
 
 
+typedef int32_t _id_t;
+
 typedef int32_t _size_t;
 typedef int32_t _coord_t;
 
