@@ -2,6 +2,8 @@
 #include <GL/glut.h>
 
 #include "callback.h"
+
+#include "mainwindow.h"
 #include "draw.h"
 
 
@@ -34,6 +36,9 @@ void display(void)
 
 void reshape(_size_t width, _size_t height)
 {
+    main_window.width = width;
+    main_window.height = height;
+
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -68,7 +73,7 @@ void keyboard(_key_t key, _coord_t x, _coord_t y)
             break;
 
         case 'q':
-            glutDestroyWindow(glutGetWindow());
+            destroyWindow(&main_window);
             break;
     }
 }

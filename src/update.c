@@ -12,7 +12,8 @@ void update(int value)
 {
     angle = (int)(angle + 1.0) % 360;
 
-    glutPostRedisplay();
+    if (glutGetWindow() > 0) glutPostRedisplay();
+
     glutTimerFunc(update_delay, update, value);
 }
 
