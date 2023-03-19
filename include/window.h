@@ -3,6 +3,8 @@
 
 
 #include "types.h"
+#include "point.h"
+#include "size.h"
 
 
 /**
@@ -15,8 +17,7 @@ typedef struct window
 
     char title[100];
 
-    _size_t width;
-    _size_t height;
+    Size size;
 } Window;
 
 
@@ -26,8 +27,7 @@ typedef struct window
  */
 void initWindow(
     Window *window, const char *title,
-    _size_t width, _size_t height,
-    _coord_t x, _coord_t y
+    const Size size, const Point position
 );
 
 /**

@@ -17,7 +17,8 @@ void drawHexagon(void)
 {
     glPushMatrix();
 
-    double k = (main_window.width) / (double)(main_window.height);
+    double k = (double)(main_window.size.width) /
+               (double)(main_window.size.height);
     if (k > 1.0) {
         glOrtho(-k, k, -1.0, 1.0, -1.0, 1.0);
     }

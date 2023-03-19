@@ -12,19 +12,16 @@ Window main_window;
 
 void initWindow(
     Window *window, const char *title,
-    _size_t width, _size_t height,
-    _coord_t x, _coord_t y
+    const Size size, const Point position
 )
 {
     if (window->id) return;
 
-    glutInitWindowSize(width, height);
-    glutInitWindowPosition(x, y);
+    glutInitWindowSize(size.width, size.height);
+    glutInitWindowPosition(position.x, position.y);
 
     window->id = glutCreateWindow(title);
-
-    window->width = width;
-    window->height = height;
+    window->size = size;
 
     strcpy(window->title, title);
 }

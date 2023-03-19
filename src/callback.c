@@ -36,8 +36,8 @@ void display(void)
 
 void reshape(_size_t width, _size_t height)
 {
-    main_window.width = width;
-    main_window.height = height;
+    Size new_size = {width, height};
+    main_window.size = new_size;
 
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
