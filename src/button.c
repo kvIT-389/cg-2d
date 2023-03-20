@@ -1,0 +1,9 @@
+#include "button.h"
+
+#include "color.h"
+
+
+const Color default_color = {0xe0, 0xe0, 0xe0};
+const Color hovered_color = {0xd0, 0xd0, 0xd0};
+const Color pressed_color = {0xb0, 0xb0, 0xb0};
+const Color border_color  = {0x70, 0x70, 0x70};
