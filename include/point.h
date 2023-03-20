@@ -16,4 +16,10 @@ typedef struct point
 } Point;
 
 
+/**
+ * Returns new Point variable from the given coordinates.
+ */
+Point getPoint(_coord_t x, _coord_t y);
+
+
 #endif  /* POINT_H_INCLUDED_ */

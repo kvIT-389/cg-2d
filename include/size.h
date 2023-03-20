@@ -15,4 +15,10 @@ typedef struct size
 } Size;
 
 
+/**
+ * Returns new Size variable from the given width and height.
+ */
+Size getSize(_size_t width, _size_t height);
+
+
 #endif  /* SIZE_H_INCLUDED_ */

@@ -10,10 +10,10 @@ int main(int argc, char **argv)
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
 
-    Size size = {480, 480};
-    Point position = {200, 200};
     initWindow(
-        &main_window, "Rotating Hexagon", size, position
+        &main_window, "Rotating Hexagon",
+        getSize(480, 480),
+        getPoint(200, 200)
     );
 
     initCallbacks();
