@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include <GL/gl.h>
 #include <GL/glut.h>
 
@@ -5,6 +7,7 @@
 
 #include "mainwindow.h"
 #include "draw.h"
+#include "collision.h"
 
 
 void initCallbacks(void)
@@ -13,6 +16,8 @@ void initCallbacks(void)
     glutReshapeFunc(reshape);
 
     glutMouseFunc(mouse);
+    glutMotionFunc(motion);
+    glutPassiveMotionFunc(passiveMotion);
 
     glutKeyboardFunc(keyboard);
     glutSpecialFunc(specialKeyboard);
@@ -36,8 +41,7 @@ void display(void)
 
 void reshape(_size_t width, _size_t height)
 {
-    Size new_size = {width, height};
-    main_window.size = new_size;
+    main_window.size = getSize(width, height);
 
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
@@ -50,8 +54,44 @@ void mouse(
     _coord_t x, _coord_t y
 )
 {
-    /* Code of mouse callback */
+    Point pos = {x, y};
+
+    switch (button) {
+        case GLUT_LEFT_BUTTON:
+            switch (state) {
+                case GLUT_DOWN:
+                    if (pointInRect(&pos, &test_button.rect)) {
+                        test_button.is_pressed = true;
+                        printf("%s pressed.\n", test_button.text);
+                    }
+
+                    break;
+
+                case GLUT_UP:
+                    test_button.is_pressed = false;
+            }
+
+            break;
+    }
 }
+
+void motion(_coord_t x, _coord_t y)
+{
+    /* Code of mouse motion callback */
+}
+
+void passiveMotion(_coord_t x, _coord_t y)
+{
+    Point pos = {x, y};
+
+    if (pointInRect(&pos, &test_button.rect)) {
+        test_button.is_hovered = true;
+    }
+    else {
+        test_button.is_hovered = false;
+    }
+}
+
 
 void keyboard(_key_t key, _coord_t x, _coord_t y)
 {
