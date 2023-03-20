@@ -10,12 +10,12 @@
  * Rectangle on XY plane defined by its vertex
  * with minimal x and y coordinates, and its size.
  * 
- * @c point - rectangle vertex with minimal coordinates.
+ * @c pos - rectangle vertex with minimal coordinates.
  * @c size - rectangle size.
  */
 typedef struct rect
 {
-    Point point;
+    Point pos;
     Size size;
 } Rect;
 
