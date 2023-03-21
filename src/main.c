@@ -17,9 +17,7 @@ int main(int argc, char **argv)
         getPoint(200, 200)
     );
 
-    addButton(&main_menu, "Button #1", getPoint(10, 10), getSize(80, 30));
-    addButton(&main_menu, "Button #2", getPoint(10, 45), getSize(80, 30));
-    addButton(&main_menu, "Button #3", getPoint(10, 80), getSize(80, 30));
+    initMainMenu();
 
     initCallbacks();
     runUpdateLoop();

@@ -14,10 +14,14 @@ typedef struct menu {
 } Menu;
 
 
+void initMainMenu(void);
+
 void addButton(
     Menu *menu, const char *text,
     const Point position, const Size size
 );
+
+void menuClear(Menu *menu);
 
 
 void menuMouseLeftDown(Menu *menu, const Point pos);
@@ -25,7 +29,6 @@ void menuMouseLeftDown(Menu *menu, const Point pos);
 void menuMouseLeftUp(Menu *menu, const Point pos);
 
 void menuMouseMove(Menu *menu, const Point pos);
-
 
 
 #endif  /* MENU_H_INCLUDED_ */
