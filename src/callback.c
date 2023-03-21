@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include <GL/gl.h>
 #include <GL/glut.h>
@@ -8,6 +9,7 @@
 #include "mainwindow.h"
 #include "draw.h"
 #include "collision.h"
+#include "mainmenu.h"
 
 
 void initCallbacks(void)
@@ -60,15 +62,24 @@ void mouse(
         case GLUT_LEFT_BUTTON:
             switch (state) {
                 case GLUT_DOWN:
-                    if (pointInRect(&pos, &test_button.rect)) {
-                        test_button.is_pressed = true;
-                        printf("%s pressed.\n", test_button.text);
+                    for (int i = 0; i < main_menu.buttons_count; ++i) {
+                        Button *button = main_menu.buttons + i;
+                        if (pointInRect(&pos, &button->rect)) {
+                            button->is_pressed = true;
+                            printf("%s pressed.\n", button->text);
+
+                            break;
+                        }
                     }
 
                     break;
 
                 case GLUT_UP:
-                    test_button.is_pressed = false;
+                    for (int i = 0; i < main_menu.buttons_count; ++i) {
+                        main_menu.buttons[i].is_pressed = false;
+                    }
+
+                    break;
             }
 
             break;
@@ -84,11 +95,14 @@ void passiveMotion(_coord_t x, _coord_t y)
 {
     Point pos = {x, y};
 
-    if (pointInRect(&pos, &test_button.rect)) {
-        test_button.is_hovered = true;
-    }
-    else {
-        test_button.is_hovered = false;
+    for (int i = 0; i < main_menu.buttons_count; ++i) {
+        Button *button = main_menu.buttons + i;
+        if (pointInRect(&pos, &button->rect)) {
+            button->is_hovered = true;
+        }
+        else {
+            button->is_hovered = false;
+        }
     }
 }
 

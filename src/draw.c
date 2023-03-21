@@ -5,22 +5,19 @@
 #include "rect.h"
 #include "button.h"
 #include "color.h"
+#include "menu.h"
+#include "mainmenu.h"
 
 
 double angle = 0.0;
 double scale = 1.0;
 
-Button test_button = {"Test Button", {10, 10, 80, 30}};
-
 
 void draw(void)
 {
-    glPushMatrix();
-        glLoadIdentity();
-        glOrtho(0, main_window.size.width, main_window.size.height, 0, -1.0, 1.0);
-        drawButton(&test_button);
-    glPopMatrix();
+    drawMenu(&main_menu);
 }
+
 
 void drawHexagon(void)
 {
@@ -62,6 +59,7 @@ void drawRect(const Rect *rect)
     glPopMatrix();
 }
 
+
 void drawButton(const Button *button)
 {
     Rect rect = button->rect;
@@ -79,7 +77,7 @@ void drawButton(const Button *button)
     if (button->is_pressed) {
         setColor(&pressed_color);
     }
-    else if (test_button.is_hovered) {
+    else if (button->is_hovered) {
         setColor(&hovered_color);
     }
     else {
@@ -87,6 +85,24 @@ void drawButton(const Button *button)
     }
 
     drawRect(&inset_rect);
+
+    glPopMatrix();
+}
+
+void drawMenu(const Menu *menu)
+{
+    glPushMatrix();
+
+    glLoadIdentity();
+    glOrtho(
+        0, main_window.size.width,
+        main_window.size.height, 0,
+        -1.0, 1.0
+    );
+
+    for (int i = 0; i < menu->buttons_count; ++i) {
+        drawButton(menu->buttons + i);
+    }
 
     glPopMatrix();
 }

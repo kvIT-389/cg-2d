@@ -3,12 +3,10 @@
 
 
 #include "button.h"
-
+#include "menu.h"
 
 extern double angle;
 extern double scale;
-
-extern Button test_button;
 
 
 /**
@@ -30,6 +28,11 @@ void drawRect(const Rect *rect);
  * Draws button specified by @a button.
  */
 void drawButton(const Button *button);
+
+/**
+ * Draws menu specified by @a menu.
+ */
+void drawMenu(const Menu *menu);
 
 
 #endif  /* DRAW_H_INCLUDED_ */
