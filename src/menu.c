@@ -25,3 +25,25 @@ void addButton(
 
     menu->buttons[menu->buttons_count - 1] = button;
 }
+
+
+void menuMouseLeftDown(Menu *menu, const Point pos)
+{
+    for (int i = 0; i < menu->buttons_count; ++i) {                        
+        buttonMouseLeftDown(menu->buttons + i, pos);
+    }
+}
+
+void menuMouseLeftUp(Menu *menu, const Point pos)
+{
+    for (int i = 0; i < menu->buttons_count; ++i) {                        
+        buttonMouseLeftUp(menu->buttons + i, pos);
+    }
+}
+
+void menuMouseMove(Menu *menu, const Point pos)
+{
+    for (int i = 0; i < menu->buttons_count; ++i) {                        
+        buttonMouseMove(menu->buttons + i, pos);
+    }
+}

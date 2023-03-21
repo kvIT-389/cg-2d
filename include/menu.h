@@ -20,4 +20,12 @@ void addButton(
 );
 
 
+void menuMouseLeftDown(Menu *menu, const Point pos);
+
+void menuMouseLeftUp(Menu *menu, const Point pos);
+
+void menuMouseMove(Menu *menu, const Point pos);
+
+
+
 #endif  /* MENU_H_INCLUDED_ */

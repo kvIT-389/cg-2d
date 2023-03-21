@@ -25,4 +25,11 @@ typedef struct button
 } Button;
 
 
+void buttonMouseLeftDown(Button *button, const Point pos);
+
+void buttonMouseLeftUp(Button *button, const Point pos);
+
+void buttonMouseMove(Button *button, const Point pos);
+
+
 #endif  /* BUTTON_H_INCLUDED_ */
