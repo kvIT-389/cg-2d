@@ -6,13 +6,14 @@
 
 
 /**
- * RBG color structure.
+ * RGBA color structure.
  */
 typedef struct color
 {
-    _rgb_channel_t r;
-    _rgb_channel_t g;
-    _rgb_channel_t b;
+    _rgba_channel_t r;
+    _rgba_channel_t g;
+    _rgba_channel_t b;
+    _rgba_channel_t a;
 } Color;
 
 

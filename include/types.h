@@ -18,7 +18,7 @@ typedef int32_t _special_key_t;
 
 typedef uint32_t _time_t;
 
-typedef uint8_t _rgb_channel_t;
+typedef uint8_t _rgba_channel_t;
 
 
 #endif  /* TYPES_H_INCLUDED_ */
