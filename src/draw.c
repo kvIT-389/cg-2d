@@ -49,13 +49,17 @@ void drawHexagon(void)
 
 void drawRect(const Rect *rect)
 {
+    _coord_t vertices[] = {
+        0, 0, rect->width, 0,
+        rect->width, rect->height, 0, rect->height
+    };
+    glVertexPointer(2, GL_INT, 0, vertices);
+
     glPushMatrix();
-
-    glTranslated(rect->x, rect->y, 0.0);
-    glRecti(
-        0.0, 0.0, rect->width, rect->height
-    );
-
+    glEnableClientState(GL_VERTEX_ARRAY);
+        glTranslated(rect->x, rect->y, 0.0);
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
     glPopMatrix();
 }
 
