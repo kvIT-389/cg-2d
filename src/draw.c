@@ -7,14 +7,24 @@
 #include "color.h"
 #include "menu.h"
 #include "mainmenu.h"
+#include "texture.h"
 
 
 double angle = 0.0;
 double scale = 1.0;
 
+Rect rct = {0, 0, 256, 256};
+double texture_coords[] = {0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0};
+
 
 void draw(void)
 {
+    glPushMatrix();
+        glOrtho(0, main_window.size.width, 0, main_window.size.height, -1.0, 1.0);
+
+        drawTexturedRect(&rct, &test_texture, 0);
+    glPopMatrix();
+
     drawMenu(&main_menu);
 }
 
@@ -61,6 +71,24 @@ void drawRect(const Rect *rect)
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
     glPopMatrix();
+}
+
+void drawTexturedRect(
+    const Rect *rect,
+    const Texture *texture,
+    const Rect *texture_rect
+)
+{
+    glBindTexture(GL_TEXTURE_2D, texture->id);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+    glColor4ub(0xff, 0xff, 0xff, 0xff);
+    glTexCoordPointer(2, GL_DOUBLE, 0, texture_coords);
+
+    drawRect(rect);
+
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 

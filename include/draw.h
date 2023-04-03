@@ -2,8 +2,10 @@
 #define DRAW_H_INCLUDED_
 
 
+#include "texture.h"
 #include "button.h"
 #include "menu.h"
+
 
 extern double angle;
 extern double scale;
@@ -23,6 +25,15 @@ void drawHexagon(void);
  * Draws rectangle specified by @a rect, and using current color.
  */
 void drawRect(const Rect *rect);
+
+/**
+ * Draws ...
+ */
+void drawTexturedRect(
+    const Rect *rect,
+    const Texture *texture,
+    const Rect *texture_rect
+);
 
 /**
  * Draws button specified by @a button.
