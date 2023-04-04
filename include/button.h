@@ -4,6 +4,7 @@
 
 #include <stdbool.h>
 
+#include "point.h"
 #include "rect.h"
 #include "color.h"
 
@@ -14,9 +15,14 @@ extern const Color pressed_color;
 extern const Color border_color;
 
 
+/**
+ * Structure which stores data associated with some button
+ * such as its rectangle and text and also buttons conditions
+ * such as is it hovered or pressed.
+ */
 typedef struct button
 {
-    char text[100];
+    char *text;
 
     Rect rect;
 
@@ -25,11 +31,23 @@ typedef struct button
 } Button;
 
 
-void buttonMouseLeftDown(Button *button, const Point pos);
+/**
+ * Function which is called after mouse left button press
+ * at the given @a position and handles it for the given @a button.
+ */
+void buttonMouseLeftDown(Button *button, Point position);
 
-void buttonMouseLeftUp(Button *button, const Point pos);
+/**
+ * Function which is called after mouse left button release
+ * at the given @a position and handles it for the given @a button.
+ */
+void buttonMouseLeftUp(Button *button, Point position);
 
-void buttonMouseMove(Button *button, const Point pos);
+/**
+ * Function which is called after mouse move
+ * to the given @a position and handles it for the given @a button.
+ */
+void buttonMouseMove(Button *button, Point position);
 
 
 #endif  /* BUTTON_H_INCLUDED_ */

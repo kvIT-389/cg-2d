@@ -13,19 +13,28 @@
 double angle = 0.0;
 double scale = 1.0;
 
-Rect rct = {0, 0, 256, 256};
-double texture_coords[] = {0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0};
+Rect rct;
 
 
 void draw(void)
 {
     glPushMatrix();
-        glOrtho(0, main_window.size.width, 0, main_window.size.height, -1.0, 1.0);
 
-        drawTexturedRect(&rct, &test_texture, 0);
-    glPopMatrix();
+    rct = getRect(
+        (Point){0, main_window.size.height - 256},
+        (Size){256, 256}
+    );
 
+    glOrtho(
+        0, main_window.size.width,
+        main_window.size.height, 0,
+        -1.0, 1.0
+    );
+
+    drawTexturedRect(&rct, &test_texture, 0);
     drawMenu(&main_menu);
+
+    glPopMatrix();
 }
 
 
@@ -59,18 +68,22 @@ void drawHexagon(void)
 
 void drawRect(const Rect *rect)
 {
-    _coord_t vertices[] = {
-        0, 0, rect->width, 0,
-        rect->width, rect->height, 0, rect->height
-    };
-    glVertexPointer(2, GL_INT, 0, vertices);
+    glVertexPointer(2, GL_INT, 0, rect->vertices);
 
-    glPushMatrix();
     glEnableClientState(GL_VERTEX_ARRAY);
-        glTranslated(rect->x, rect->y, 0.0);
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
-    glPopMatrix();
+}
+
+void drawRectFrame(const Rect *rect, GLfloat line_width)
+{
+    glVertexPointer(2, GL_INT, 0, rect->vertices);
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+        glLineWidth(line_width);
+        glDrawArrays(GL_LINE_LOOP, 0, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
 }
 
 void drawTexturedRect(
@@ -79,10 +92,32 @@ void drawTexturedRect(
     const Rect *texture_rect
 )
 {
+    if (!texture->id) return;  /* Error: texture is not loaded. */
+
+    Rect full_texture_rect;
+
+    if (!texture_rect) {
+        full_texture_rect = getRect((Point){0, 0}, texture->size);
+
+        texture_rect = &full_texture_rect;
+    }
+
+    double texture_coords[8];
+    for (int i = 0; i < 8; i += 2) {
+        texture_coords[i] = texture_rect->vertices[i >> 1].x
+                          / (double)texture->size.width;
+    }
+
+    for (int i = 1; i < 8; i += 2) {
+        texture_coords[i] = texture_rect->vertices[i >> 1].y
+                          / (double)texture->size.height;
+    }
+
+
     glBindTexture(GL_TEXTURE_2D, texture->id);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    glColor4ub(0xff, 0xff, 0xff, 0xff);
+    setCurrentColor(&white);
     glTexCoordPointer(2, GL_DOUBLE, 0, texture_coords);
 
     drawRect(rect);
@@ -94,29 +129,22 @@ void drawTexturedRect(
 
 void drawButton(const Button *button)
 {
-    Rect rect = button->rect;
-
-    Rect inset_rect = {
-        rect.x + 2, rect.y + 2,
-        rect.width - 2*2, rect.height - 2*2
-    };
-
     glPushMatrix();
 
-    setColor(&border_color);
-    drawRect(&rect);
-
     if (button->is_pressed) {
-        setColor(&pressed_color);
+        setCurrentColor(&pressed_color);
     }
     else if (button->is_hovered) {
-        setColor(&hovered_color);
+        setCurrentColor(&hovered_color);
     }
     else {
-        setColor(&default_color);
+        setCurrentColor(&default_color);
     }
 
-    drawRect(&inset_rect);
+    drawRect(&button->rect);
+
+    setCurrentColor(&border_color);
+    drawRectFrame(&button->rect, 2.0f);
 
     glPopMatrix();
 }
@@ -124,13 +152,6 @@ void drawButton(const Button *button)
 void drawMenu(const Menu *menu)
 {
     glPushMatrix();
-
-    glLoadIdentity();
-    glOrtho(
-        0, main_window.size.width,
-        main_window.size.height, 0,
-        -1.0, 1.0
-    );
 
     for (int i = 0; i < menu->buttons_count; ++i) {
         drawButton(menu->buttons + i);

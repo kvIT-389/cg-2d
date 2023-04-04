@@ -2,19 +2,22 @@
 #define UPDATE_H_INCLUDED_
 
 
-#include <types.h>
+#include "types.h"
 
 
 extern const _time_t update_delay;
 
 
 /**
- * Main update function.
+ * Main update function which is called every @a update_delay
+ * milliseconds and every time mark window to be redisplayed
+ * in the next iteration of glut main loop.
  */
 void update(int value);
 
 /**
- * Run main update loop.
+ * Calls @a update function in the first time
+ * to run update loop.
  */
 void runUpdateLoop(void);
 

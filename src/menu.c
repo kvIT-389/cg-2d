@@ -2,6 +2,8 @@
 #include <string.h>
 
 #include "menu.h"
+#include "rect.h"
+#include "button.h"
 
 
 Menu main_menu;
@@ -9,14 +11,14 @@ Menu main_menu;
 
 void initMainMenu(void)
 {
-    addButton(&main_menu, "Button #1", getPoint(10, 10), getSize(80, 30));
-    addButton(&main_menu, "Button #2", getPoint(10, 45), getSize(80, 30));
-    addButton(&main_menu, "Button #3", getPoint(10, 80), getSize(80, 30));
+    menuAddButton(&main_menu, "Button #1", (Point){10, 10}, (Size){80, 30});
+    menuAddButton(&main_menu, "Button #2", (Point){10, 50}, (Size){80, 30});
+    menuAddButton(&main_menu, "Button #3", (Point){10, 90}, (Size){80, 30});
 }
 
-void addButton(
+void menuAddButton(
     Menu *menu, const char *text,
-    const Point position, const Size size
+    Point position, Size size
 )
 {
     ++menu->buttons_count;
@@ -25,39 +27,44 @@ void addButton(
         menu->buttons_count * sizeof(Button)
     );
 
-    Button button;
+    Button *button = menu->buttons + (menu->buttons_count - 1);
 
-    strcpy(button.text, text);
-    button.rect = getRect(&position, &size);
+    button->text = calloc(strlen(text), sizeof(char));
+    strcpy(button->text, text);
 
-    menu->buttons[menu->buttons_count - 1] = button;
+    button->rect = getRect(position, size);
+
+    button->is_hovered = false;
+    button->is_pressed = false;
 }
 
 void menuClear(Menu *menu)
 {
-    menu->buttons_count = 0;
+    while (menu->buttons_count > 0) {
+        free(menu->buttons[--menu->buttons_count].text);
+    }
 
     free(menu->buttons);
 }
 
 
-void menuMouseLeftDown(Menu *menu, const Point pos)
+void menuMouseLeftDown(Menu *menu, Point position)
 {
-    for (int i = 0; i < menu->buttons_count; ++i) {                        
-        buttonMouseLeftDown(menu->buttons + i, pos);
+    for (int i = 0; i < menu->buttons_count; ++i) {
+        buttonMouseLeftDown(menu->buttons + i, position);
     }
 }
 
-void menuMouseLeftUp(Menu *menu, const Point pos)
+void menuMouseLeftUp(Menu *menu, Point position)
 {
-    for (int i = 0; i < menu->buttons_count; ++i) {                        
-        buttonMouseLeftUp(menu->buttons + i, pos);
+    for (int i = 0; i < menu->buttons_count; ++i) {
+        buttonMouseLeftUp(menu->buttons + i, position);
     }
 }
 
-void menuMouseMove(Menu *menu, const Point pos)
+void menuMouseMove(Menu *menu, Point position)
 {
-    for (int i = 0; i < menu->buttons_count; ++i) {                        
-        buttonMouseMove(menu->buttons + i, pos);
+    for (int i = 0; i < menu->buttons_count; ++i) {
+        buttonMouseMove(menu->buttons + i, position);
     }
 }

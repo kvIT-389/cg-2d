@@ -12,22 +12,22 @@ const Color pressed_color = {0xb0, 0xb0, 0xb0, 0xff};
 const Color border_color  = {0x70, 0x70, 0x70, 0xff};
 
 
-void buttonMouseLeftDown(Button *button, const Point pos)
+void buttonMouseLeftDown(Button *button, Point position)
 {
-    if (pointInRect(&pos, &button->rect)) {
+    if (pointInRect(position, button->rect)) {
         button->is_pressed = true;
         printf("%s pressed.\n", button->text);
     }
 }
 
-void buttonMouseLeftUp(Button *button, const Point pos)
+void buttonMouseLeftUp(Button *button, Point position)
 {
     button->is_pressed = false;
 }
 
-void buttonMouseMove(Button *button, const Point pos)
+void buttonMouseMove(Button *button, Point position)
 {
-    if (pointInRect(&pos, &button->rect)) {
+    if (pointInRect(position, button->rect)) {
         button->is_hovered = true;
     }
     else {

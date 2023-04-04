@@ -2,23 +2,27 @@
 #define TYPES_H_INCLUDED_
 
 
-#include <stdint.h>
+#include <GL/gl.h>
 
 
-typedef int32_t _id_t;
+typedef int _window_id_t;
 
-typedef int32_t _size_t;
-typedef int32_t _coord_t;
+typedef unsigned int _time_t;
 
-typedef int32_t _mouse_button_t;
-typedef int32_t _mouse_button_state_t;
+typedef int _mouse_button_t;
+typedef int _mouse_button_state_t;
 
-typedef uint8_t _key_t;
-typedef int32_t _special_key_t;
+typedef unsigned char _key_t;
+typedef int _special_key_t;
 
-typedef uint32_t _time_t;
+typedef GLint _coord_t;
+typedef GLsizei _size_t;
 
-typedef uint8_t _rgba_channel_t;
+typedef GLint _texture_id_t;
+
+typedef GLubyte _rgba_channel_t;
+
+typedef GLfloat _line_width_t;
 
 
 #endif  /* TYPES_H_INCLUDED_ */

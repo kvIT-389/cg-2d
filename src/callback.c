@@ -2,9 +2,8 @@
 #include <GL/glut.h>
 
 #include "callback.h"
-
-#include "mainwindow.h"
 #include "draw.h"
+#include "mainwindow.h"
 #include "mainmenu.h"
 
 
@@ -39,7 +38,7 @@ void display(void)
 
 void reshape(_size_t width, _size_t height)
 {
-    main_window.size = getSize(width, height);
+    main_window.size = (Size){width, height};
 
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
@@ -52,18 +51,18 @@ void mouse(
     _coord_t x, _coord_t y
 )
 {
-    Point pos = {x, y};
+    Point position = {x, y};
 
     switch (button) {
         case GLUT_LEFT_BUTTON:
             switch (state) {
                 case GLUT_DOWN:
-                    menuMouseLeftDown(&main_menu, pos);
+                    menuMouseLeftDown(&main_menu, position);
 
                     break;
 
                 case GLUT_UP:
-                    menuMouseLeftUp(&main_menu, pos);
+                    menuMouseLeftUp(&main_menu, position);
 
                     break;
             }
@@ -79,9 +78,9 @@ void motion(_coord_t x, _coord_t y)
 
 void passiveMotion(_coord_t x, _coord_t y)
 {
-    Point pos = {x, y};
+    Point position = {x, y};
 
-    menuMouseMove(&main_menu, pos);
+    menuMouseMove(&main_menu, position);
 }
 
 

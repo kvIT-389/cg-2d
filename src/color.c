@@ -3,7 +3,10 @@
 #include "color.h"
 
 
-void setColor(const Color *color)
+const Color white = {0xff, 0xff, 0xff, 0xff};
+
+
+void setCurrentColor(const Color *color)
 {
-    glColor4ub(color->r, color->g, color->b, color->a);
+    glColor4ubv(color->channels);
 }

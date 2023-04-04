@@ -8,30 +8,31 @@
 
 
 /**
- * Structure to store data associated
- * with one of the application windows.
+ * Structure which stores data such as current size associated
+ * with one of the application windows specified by its @a id.
+ * 
+ * if @a id is equals to zero window is not
+ * associated with any application window.
  */
 typedef struct window
 {
-    _id_t id;
-
-    char title[100];
+    _window_id_t id;
 
     Size size;
 } Window;
 
 
 /**
- * Creates a new window and
- * initializes @a window structure with related to it data.
+ * Creates a new window and initializes @a window instance
+ * with data associated with created window.
  */
 void initWindow(
     Window *window, const char *title,
-    const Size size, const Point position
+    Size size, Point position
 );
 
 /**
- * Destroys destroys the window specified by @a window
+ * Destroys the window specified by @a window
  * and associated with it OpenGL context.
  */
 void destroyWindow(Window *window);

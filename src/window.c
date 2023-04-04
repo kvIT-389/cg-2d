@@ -12,23 +12,20 @@ Window main_window;
 
 void initWindow(
     Window *window, const char *title,
-    const Size size, const Point position
+    Size size, Point position
 )
 {
-    if (window->id) return;
+    if (window->id) return;  /* Error: window is already initialized. */
 
     glutInitWindowSize(size.width, size.height);
     glutInitWindowPosition(position.x, position.y);
 
     window->id = glutCreateWindow(title);
     window->size = size;
-
-    strcpy(window->title, title);
 }
 
 void destroyWindow(Window *window)
 {
     glutDestroyWindow(window->id);
-
     window->id = 0;
 }

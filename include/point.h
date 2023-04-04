@@ -6,20 +6,15 @@
 
 
 /**
- * 2-dimensional point structure.
+ * Structure which stores two coordinates of point i.e. x and y.
  * z-coordinate supposed to be 0.
+ * 
+ * Each coordinate is stored in terms of window pixels.
  */
 typedef struct point
 {
-    _coord_t x;
-    _coord_t y;
+    _coord_t x, y;
 } Point;
-
-
-/**
- * Returns new Point variable from the given coordinates.
- */
-Point getPoint(_coord_t x, _coord_t y);
 
 
 #endif  /* POINT_H_INCLUDED_ */

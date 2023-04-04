@@ -3,10 +3,10 @@
 #include "rect.h"
 
 
-bool pointInRect(const Point *point, const Rect *rect)
+bool pointInRect(Point point, Rect rect)
 {
-    return (point->x >= rect->x) &&
-           (point->y >= rect->y) &&
-           (rect->x + rect->width >= point->x) &&
-           (rect->y + rect->height >= point->y);
+    return (rect.vertices[0].x <= point.x) &&
+           (rect.vertices[0].y <= point.y) &&
+           (point.x <= rect.vertices[2].x) &&
+           (point.y <= rect.vertices[2].y);
 }

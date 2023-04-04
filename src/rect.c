@@ -3,20 +3,12 @@
 #include "size.h"
 
 
-Rect getRect(const Point *pos, const Size *size)
+Rect getRect(Point position, Size size)
 {
-    Rect rect = {pos->x, pos->y, size->width, size->height};
-
-    return rect;
-}
-
-
-Point getRectPosition(const Rect *rect)
-{
-    return getPoint(rect->x, rect->y);
-}
-
-Size getRectSize(const Rect *rect)
-{
-    return getSize(rect->width, rect->height);
+    return (Rect){
+        position.x, position.y,
+        position.x, position.y + size.height,
+        position.x + size.width, position.y + size.height,
+        position.x + size.width, position.y
+    };
 }

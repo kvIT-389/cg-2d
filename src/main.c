@@ -5,6 +5,8 @@
 #include "callback.h"
 #include "update.h"
 #include "texture.h"
+#include "point.h"
+#include "size.h"
 
 
 int main(int argc, char **argv)
@@ -14,8 +16,8 @@ int main(int argc, char **argv)
 
     initWindow(
         &main_window, "Rotating Hexagon",
-        getSize(480, 480),
-        getPoint(200, 200)
+        (Size){480, 480},
+        (Point){200, 200}
     );
 
     glEnable(GL_BLEND);
