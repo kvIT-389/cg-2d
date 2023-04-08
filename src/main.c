@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_TEXTURE_2D);
-    textureLoad(&test_texture, "img/0.png");
+    textureLoadFromFile(&test_texture, "img/0.png");
 
     initMainMenu();
 

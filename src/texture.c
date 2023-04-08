@@ -7,17 +7,27 @@
 Texture test_texture;
 
 
-void textureLoad(Texture *texture, const char *file_name)
+void textureLoadFromFile(Texture *texture, const char *file_name)
 {
     if (texture->id) return;  /* Error: texture is already loaded. */
 
     Image image = {};
     imageLoad(&image, file_name);
 
-    texture->size = image.size;
+    textureLoadFromImage(texture, &image);
+
+    imageFree(&image);
+}
+
+void textureLoadFromImage(Texture *texture, const Image *image)
+{
+    if (texture->id) return;  /* Error: texture is already loaded. */
+    if (!image->data) return;  /* Error: image is not loaded. */
+
+    texture->size = image->size;
 
     GLint color_format;
-    if (image.channels_count == 4) {
+    if (image->channels_count == 4) {
         color_format = GL_RGBA;
     }
     else {
@@ -34,12 +44,10 @@ void textureLoad(Texture *texture, const char *file_name)
 
         glTexImage2D(
             GL_TEXTURE_2D, 0, color_format,
-            image.size.width, image.size.height,
-            0, color_format, GL_UNSIGNED_BYTE, image.data
+            image->size.width, image->size.height,
+            0, color_format, GL_UNSIGNED_BYTE, image->data
         );
     glBindTexture(GL_TEXTURE_2D, 0);
-
-    imageFree(&image);
 }
 
 void textureFree(Texture *texture)
