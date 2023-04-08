@@ -28,9 +28,12 @@ extern Texture test_texture;
  * Loads texture from the file specified by @a file_name
  * and saves associated with it id and size to the @a texture.
  */
-void loadTexture(
-    Texture *texture, const char *file_name
-);
+void textureLoad(Texture *texture, const char *file_name);
+
+/**
+ * Deletes loaded texture specified by @a texture.
+ */
+void textureFree(Texture *texture);
 
 
 #endif  /* TEXTURE_H_INCLUDED_ */

@@ -18,7 +18,7 @@ typedef int _special_key_t;
 typedef GLint _coord_t;
 typedef GLsizei _size_t;
 
-typedef GLint _texture_id_t;
+typedef GLuint _texture_id_t;
 
 typedef GLubyte _rgba_channel_t;
 

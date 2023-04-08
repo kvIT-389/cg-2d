@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_TEXTURE_2D);
-    loadTexture(&test_texture, "img/0.png");
+    textureLoad(&test_texture, "img/0.png");
 
     initMainMenu();
 
@@ -32,6 +32,8 @@ int main(int argc, char **argv)
     runUpdateLoop();
 
     glutMainLoop();
+
+    textureFree(&test_texture);
 
     return 0;
 }

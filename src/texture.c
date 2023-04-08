@@ -1,17 +1,15 @@
 #include <GL/gl.h>
 
-#include "texture.h"
-
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
+
+#include "texture.h"
 
 
 Texture test_texture;
 
 
-void loadTexture(
-    Texture *texture, const char *file_name
-)
+void textureLoad(Texture *texture, const char *file_name)
 {
     if (texture->id) return;  /* Error: texture is already loaded. */
 
@@ -38,4 +36,13 @@ void loadTexture(
     glBindTexture(GL_TEXTURE_2D, 0);
 
     stbi_image_free(data);
+}
+
+void textureFree(Texture *texture)
+{
+    if (!texture->id) return;  /* Error: texture is not loaded. */
+
+    glDeleteTextures(1, &texture->id);
+
+    *texture = (Texture){0, 0, 0};
 }
