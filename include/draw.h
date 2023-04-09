@@ -5,6 +5,7 @@
 #include "types.h"
 #include "rect.h"
 #include "texture.h"
+#include "charset.h"
 #include "button.h"
 #include "menu.h"
 
@@ -35,6 +36,18 @@ void drawRect(const Rect *rect);
  * using current color and the given @a line_width.
  */
 void drawRectFrame(const Rect *rect, _line_width_t line_width);
+
+void drawTextLine(
+    const unsigned char *text,
+    Point pos,
+    const Charset *charset
+);
+
+void drawCharacter(
+    unsigned char character,
+    Point pos,
+    const Charset *charset
+);
 
 /**
  * Draws texture in the rectangle specified by @a rect

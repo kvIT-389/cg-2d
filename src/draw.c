@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include <GL/gl.h>
 
 #include "draw.h"
@@ -7,34 +9,22 @@
 #include "color.h"
 #include "menu.h"
 #include "mainmenu.h"
-#include "texture.h"
+#include "charset.h"
 
 
 double angle = 0.0;
 double scale = 1.0;
 
-Rect rct;
-
 
 void draw(void)
 {
-    glPushMatrix();
-
-    rct = getRect(
-        (Point){0, main_window.size.height - 256},
-        (Size){256, 256}
-    );
-
     glOrtho(
         0, main_window.size.width,
         main_window.size.height, 0,
         -1.0, 1.0
     );
 
-    drawTexturedRect(&rct, &test_texture, 0);
     drawMenu(&main_menu);
-
-    glPopMatrix();
 }
 
 
@@ -84,6 +74,51 @@ void drawRectFrame(const Rect *rect, GLfloat line_width)
         glDrawArrays(GL_LINE_LOOP, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
 
+}
+
+void drawTextLine(
+    const unsigned char *text,
+    Point pos,
+    const Charset *charset
+)
+{
+    glPushMatrix();
+
+    glTranslated(pos.x, pos.y, 0);
+
+    for (int i = 0; i < strlen(text); ++i) {
+        drawCharacter(text[i], (Point){0, 0}, charset);
+        glTranslated(charset->char_width_array[text[i]], 0, 0);
+    }
+
+    glPopMatrix();
+}
+
+void drawCharacter(
+    unsigned char character,
+    Point pos,
+    const Charset *charset
+)
+{
+    glPushMatrix();
+
+    Size character_size = {
+        charset->char_width_array[character],
+        charset->char_cell_size
+    };
+
+    Rect rect = getRect(pos, character_size);
+    Rect texture_rect = getRect(
+        (Point){
+            (character & 15) * charset->char_cell_size,
+            (character >> 4) * charset->char_cell_size
+        },
+        character_size
+    );
+
+    drawTexturedRect(&rect, &charset->texture, &texture_rect);
+
+    glPopMatrix();
 }
 
 void drawTexturedRect(
@@ -145,6 +180,12 @@ void drawButton(const Button *button)
 
     setCurrentColor(&border_color);
     drawRectFrame(&button->rect, 2.0f);
+
+    drawTextLine(
+        button->text,
+        button->rect.vertices[0],
+        &default_charset
+    );
 
     glPopMatrix();
 }

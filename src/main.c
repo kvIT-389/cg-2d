@@ -4,7 +4,7 @@
 #include "mainmenu.h"
 #include "callback.h"
 #include "update.h"
-#include "texture.h"
+#include "charset.h"
 #include "point.h"
 #include "size.h"
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_TEXTURE_2D);
-    textureLoadFromFile(&test_texture, "img/0.png");
+    charsetLoad(&default_charset, "charsets/0.png");
 
     initMainMenu();
 
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 
     glutMainLoop();
 
-    textureFree(&test_texture);
+    charsetFree(&default_charset);
 
     return 0;
 }
