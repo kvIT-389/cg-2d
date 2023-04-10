@@ -56,29 +56,35 @@ void drawHexagon(void)
     glPopMatrix();
 }
 
-void drawRect(const Rect *rect)
+void drawRect(const Rect *rect, const Color *color)
 {
-    glVertexPointer(2, GL_INT, 0, rect->vertices);
+    setCurrentColor(color);
 
     glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(2, GL_INT, 0, rect->vertices);
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void drawRectFrame(const Rect *rect, GLfloat line_width)
+void drawRectFrame(
+    const Rect *rect,
+    const Color *color,
+    _line_width_t line_width
+)
 {
-    glVertexPointer(2, GL_INT, 0, rect->vertices);
+    setCurrentColor(color);
 
     glEnableClientState(GL_VERTEX_ARRAY);
         glLineWidth(line_width);
+        glVertexPointer(2, GL_INT, 0, rect->vertices);
         glDrawArrays(GL_LINE_LOOP, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
-
 }
 
 void drawTextLine(
     const unsigned char *text,
     Point pos,
+    const Color *color,
     const Charset *charset
 )
 {
@@ -87,7 +93,7 @@ void drawTextLine(
     glTranslated(pos.x, pos.y, 0);
 
     for (int i = 0; i < strlen(text); ++i) {
-        drawCharacter(text[i], (Point){0, 0}, charset);
+        drawCharacter(text[i], (Point){0, 0}, color, charset);
         glTranslated(charset->char_width_array[text[i]], 0, 0);
     }
 
@@ -97,6 +103,7 @@ void drawTextLine(
 void drawCharacter(
     unsigned char character,
     Point pos,
+    const Color *color,
     const Charset *charset
 )
 {
@@ -116,7 +123,12 @@ void drawCharacter(
         character_size
     );
 
-    drawTexturedRect(&rect, &charset->texture, &texture_rect);
+    drawTexturedRect(
+        &rect,
+        &charset->texture,
+        &texture_rect,
+        color
+    );
 
     glPopMatrix();
 }
@@ -124,7 +136,8 @@ void drawCharacter(
 void drawTexturedRect(
     const Rect *rect,
     const Texture *texture,
-    const Rect *texture_rect
+    const Rect *texture_rect,
+    const Color *fill_color
 )
 {
     if (!texture->id) return;  /* Error: texture is not loaded. */
@@ -152,10 +165,9 @@ void drawTexturedRect(
     glBindTexture(GL_TEXTURE_2D, texture->id);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    setCurrentColor(&white);
     glTexCoordPointer(2, GL_DOUBLE, 0, texture_coords);
 
-    drawRect(rect);
+    drawRect(rect, fill_color);
 
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -176,14 +188,13 @@ void drawButton(const Button *button)
         setCurrentColor(&default_color);
     }
 
-    drawRect(&button->rect);
-
-    setCurrentColor(&border_color);
-    drawRectFrame(&button->rect, 2.0f);
+    drawRect(&button->rect, 0);
+    drawRectFrame(&button->rect, &border_color, 2.0f);
 
     drawTextLine(
         button->text,
         button->rect.vertices[0],
+        &slategray,
         &default_charset
     );
 

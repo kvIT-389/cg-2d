@@ -3,6 +3,7 @@
 
 
 #include "types.h"
+#include "color.h"
 #include "rect.h"
 #include "texture.h"
 #include "charset.h"
@@ -27,25 +28,32 @@ void drawHexagon(void);
 
 /**
  * Draws rectangle specified by @a rect
- * using current color.
+ * using @a color if it's given or current color otherwise.
  */
-void drawRect(const Rect *rect);
+void drawRect(const Rect *rect, const Color *color);
 
 /**
  * Draws rectangle frame specified by @a rect
- * using current color and the given @a line_width.
+ * using @a color if it's given or current color otherwise
+ * and the given @a line_width.
  */
-void drawRectFrame(const Rect *rect, _line_width_t line_width);
+void drawRectFrame(
+    const Rect *rect,
+    const Color *color,
+    const _line_width_t line_width
+);
 
 void drawTextLine(
     const unsigned char *text,
-    Point pos,
+    const Point pos,
+    const Color *color,
     const Charset *charset
 );
 
 void drawCharacter(
-    unsigned char character,
-    Point pos,
+    const unsigned char character,
+    const Point pos,
+    const Color *color,
     const Charset *charset
 );
 
@@ -57,12 +65,17 @@ void drawCharacter(
  * which is used to draw and depends on texture size.
  * 
  * To use all texture data @a texture_rect pointer
- * should be equal to @c NULL:
+ * should be equal to @c NULL.
+ * 
+ * Color @a fill_color specifies color which will be used
+ * during rectangle drawing. Giving white color means to
+ * draw texture "as is" with its source colors.
  */
 void drawTexturedRect(
     const Rect *rect,
     const Texture *texture,
-    const Rect *texture_rect
+    const Rect *texture_rect,
+    const Color *fill_color
 );
 
 /**

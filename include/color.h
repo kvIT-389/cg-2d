@@ -6,8 +6,8 @@
 
 
 /**
- * Structure which stores RGBA color as array of 4
- * its components i.e. red, green, blue and alpha channels.
+ * Structure which stores color as array of 4 its components
+ * i.e. red, green, blue and alpha channels.
  */
 typedef struct color
 {
@@ -17,13 +17,37 @@ typedef struct color
 
 /* Predefined colors */
 
+/* Color #ffffff */
 extern const Color white;
+
+/* Color #dcdcdc */
+extern const Color gainsboro;
+
+/* Color #d3d3d3 */
+extern const Color lightgray;
+
+/* Color #c0c0c0 */
+extern const Color silver;
+
+/* Color #a9a9a9 */
+extern const Color darkgray;
+
+/* Color #808080 */
+extern const Color gray;
+
+/* Color #708090 */
+extern const Color slategray;
+
+/* Color #696969 */
+extern const Color dimgray;
 
 
 /**
- * Sets current OpenGL color to @a color.
+ * Sets current OpenGL color.
+ * 
+ * \param color color to set.
  */
-void setCurrentColor(const Color *color);
+void setColor(const Color *color);
 
 
 #endif  /* COLOR_H_INCLUDED_ */
