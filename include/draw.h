@@ -6,7 +6,7 @@
 #include "color.h"
 #include "rect.h"
 #include "texture.h"
-#include "charset.h"
+#include "font.h"
 #include "button.h"
 #include "menu.h"
 
@@ -46,15 +46,13 @@ void drawRectFrame(
 void drawTextLine(
     const unsigned char *text,
     const Point pos,
-    const Color *color,
-    const Charset *charset
+    const Font *font
 );
 
 void drawCharacter(
     const unsigned char character,
     const Point pos,
-    const Color *color,
-    const Charset *charset
+    const Font *font
 );
 
 /**

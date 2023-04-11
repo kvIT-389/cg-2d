@@ -10,6 +10,7 @@
 #include "menu.h"
 #include "mainmenu.h"
 #include "charset.h"
+#include "font.h"
 
 
 double angle = 0.0;
@@ -84,17 +85,25 @@ void drawRectFrame(
 void drawTextLine(
     const unsigned char *text,
     Point pos,
-    const Color *color,
-    const Charset *charset
+    const Font *font
 )
 {
     glPushMatrix();
 
     glTranslated(pos.x, pos.y, 0);
 
+    double k = font->line_height /
+               (double)font->charset->char_cell_size;
+    glScaled(k, k, 0);
+
     for (int i = 0; i < strlen(text); ++i) {
-        drawCharacter(text[i], (Point){0, 0}, color, charset);
-        glTranslated(charset->char_width_array[text[i]], 0, 0);
+        const unsigned char ch = text[i];
+
+        drawCharacter(ch, (Point){0, 0}, font);
+        glTranslated(
+            font->charset->char_width_array[ch] + font->letter_spacing,
+            0, 0
+        );
     }
 
     glPopMatrix();
@@ -103,11 +112,12 @@ void drawTextLine(
 void drawCharacter(
     unsigned char character,
     Point pos,
-    const Color *color,
-    const Charset *charset
+    const Font *font
 )
 {
     glPushMatrix();
+
+    const Charset *charset = font->charset;
 
     Size character_size = {
         charset->char_width_array[character],
@@ -127,7 +137,7 @@ void drawCharacter(
         &rect,
         &charset->texture,
         &texture_rect,
-        color
+        font->color
     );
 
     glPopMatrix();
@@ -193,9 +203,8 @@ void drawButton(const Button *button)
 
     drawTextLine(
         button->text,
-        button->rect.vertices[0],
-        &slategray,
-        &default_charset
+        rectPos(&button->rect),
+        &font
     );
 
     glPopMatrix();
