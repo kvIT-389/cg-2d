@@ -1,12 +1,14 @@
+#include <stdint.h>
+
 #include "collision.h"
 #include "point.h"
 #include "rect.h"
 
 
-bool pointInRect(Point point, Rect rect)
+uint8_t pointInRect(Point point, const Rect *rect)
 {
-    return (rect.vertices[0].x <= point.x) &&
-           (rect.vertices[0].y <= point.y) &&
-           (point.x <= rect.vertices[2].x) &&
-           (point.y <= rect.vertices[2].y);
+    return (rectLeft(rect) <= point.x) &&
+           (point.x <= rectRight(rect)) &&
+           (rectTop(rect) <= point.y) &&
+           (point.y <= rectBottom(rect));
 }

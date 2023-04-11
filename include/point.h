@@ -6,14 +6,15 @@
 
 
 /**
- * Structure which stores two coordinates of point i.e. x and y.
+ * Structure which stores point as two its coordinates i.e. x and y.
  * z-coordinate supposed to be 0.
  * 
  * Each coordinate is stored in terms of window pixels.
  */
 typedef struct point
 {
-    _coord_t x, y;
+    _coord_t x;
+    _coord_t y;
 } Point;
 
 

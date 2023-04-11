@@ -8,8 +8,7 @@
 
 
 /**
- * Structure to store rectangle vertices
- * as array of @a Point instances.
+ * Structure which stores rectangle as array of its vertices.
  */
 typedef struct rect
 {
@@ -18,9 +17,77 @@ typedef struct rect
 
 
 /**
- * Returns new Rect instance from its @a position and @a size.
+ * Gets a new rectangle from its position and size.
+ * 
+ * \param[in] pos rectangle position i.e.
+ *                point with minimal coordinates.
+ * \param[in] size rectangle size.
+ * 
+ * \return New rectangle i.e. \a Rect instance.
  */
-Rect getRect(Point position, Size size);
+Rect getRect(const Point pos, const Size size);
+
+
+/**
+ * Returns left edge coordinate of the rectangle.
+ * 
+ * \param[in] rect given rectangle.
+ */
+_coord_t rectLeft(const Rect *rect);
+
+/**
+ * Returns right edge coordinate of the rectangle.
+ * 
+ * \param[in] rect given rectangle.
+ */
+_coord_t rectRight(const Rect *rect);
+
+/**
+ * Returns top edge coordinate of the rectangle.
+ * 
+ * \param[in] rect given rectangle.
+ */
+_coord_t rectTop(const Rect *rect);
+
+/**
+ * Returns bottom edge coordinate of the rectangle.
+ * 
+ * \param[in] rect given rectangle.
+ */
+_coord_t rectBottom(const Rect *rect);
+
+
+/**
+ * Returns width of the rectangle.
+ * 
+ * \param[in] rect given rectangle.
+ */
+_size_t rectWidth(const Rect *rect);
+
+/**
+ * Returns height of the rectangle.
+ * 
+ * \param[in] rect given rectangle.
+ */
+_size_t rectHeight(const Rect *rect);
+
+
+/**
+ * Returns position of the rectangle.
+ * 
+ * \param[in] rect given rectangle.
+ * 
+ * \return Position of the rectangle
+ *         i.e. point with minimal coordinates.
+ */
+Point rectPos(const Rect *rect);
+
+/**
+ * Returns size of the rectangle.
+ * 
+ * \param[in] rect given rectangle.
+ */
+Size rectSize(const Rect *rect);
 
 
 #endif  /* RECT_H_INCLUDED_ */

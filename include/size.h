@@ -6,14 +6,15 @@
 
 
 /**
- * Structure which stores values of rectangle size
- * i.e. width and height.
+ * Structure which stores rectangle size
+ * as values of its width and height.
  * 
  * Each size component is stored in terms of window pixels.
  */
 typedef struct size
 {
-    _size_t width, height;
+    _size_t width;
+    _size_t height;
 } Size;
 
 

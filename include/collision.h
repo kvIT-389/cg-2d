@@ -2,17 +2,21 @@
 #define COLLISION_H_INCLUDED_
 
 
-#include <stdbool.h>
+#include <stdint.h>
 
 #include "point.h"
 #include "rect.h"
 
 
 /**
- * Returns @c true if the given point is inside the given rectangle,
- * otherwise returns @c false.
+ * Returns 1 if the point is inside the rectangle,
+ * otherwise returns 0.
+ * 
+ * \param[in] point given point.
+ * 
+ * \param[in] rect given rectangle.
  */
-bool pointInRect(Point point, Rect rect);
+uint8_t pointInRect(const Point point, const Rect *rect);
 
 
 #endif  /* COLLISION_H_INCLUDED_ */

@@ -59,7 +59,7 @@ void drawHexagon(void)
 
 void drawRect(const Rect *rect, const Color *color)
 {
-    setCurrentColor(color);
+    setColor(color);
 
     glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(2, GL_INT, 0, rect->vertices);
@@ -73,7 +73,7 @@ void drawRectFrame(
     _line_width_t line_width
 )
 {
-    setCurrentColor(color);
+    setColor(color);
 
     glEnableClientState(GL_VERTEX_ARRAY);
         glLineWidth(line_width);
@@ -84,7 +84,7 @@ void drawRectFrame(
 
 void drawTextLine(
     const unsigned char *text,
-    Point pos,
+    const Point pos,
     const Font *font
 )
 {
@@ -198,8 +198,12 @@ void drawButton(const Button *button)
         setCurrentColor(&default_color);
     }
 
-    drawRect(&button->rect, 0);
-    drawRectFrame(&button->rect, &border_color, 2.0f);
+    const Font font = {
+        &default_charset,
+        &slategray,
+        4,
+        rectHeight(&button->rect)
+    };
 
     drawTextLine(
         button->text,
