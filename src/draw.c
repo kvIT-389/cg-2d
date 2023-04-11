@@ -188,15 +188,8 @@ void drawButton(const Button *button)
 {
     glPushMatrix();
 
-    if (button->is_pressed) {
-        setCurrentColor(&pressed_color);
-    }
-    else if (button->is_hovered) {
-        setCurrentColor(&hovered_color);
-    }
-    else {
-        setCurrentColor(&default_color);
-    }
+    drawRect(&button->rect, &button->palette[button->state]);
+    drawRectFrame(&button->rect, &dimgray, 2.0f);
 
     const Font font = {
         &default_charset,

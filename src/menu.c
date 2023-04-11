@@ -2,8 +2,11 @@
 #include <string.h>
 
 #include "menu.h"
+#include "point.h"
+#include "size.h"
 #include "rect.h"
 #include "button.h"
+#include "mainwindow.h"
 
 
 Menu main_menu;
@@ -11,14 +14,29 @@ Menu main_menu;
 
 void initMainMenu(void)
 {
-    menuAddButton(&main_menu, "Button #1", (Point){10, 10}, (Size){80, 30});
-    menuAddButton(&main_menu, "Button #2", (Point){10, 50}, (Size){80, 30});
-    menuAddButton(&main_menu, "Button #3", (Point){10, 90}, (Size){80, 30});
+    menuAddButton(
+        &main_menu, "Start",
+        (Point){10, 10}, (Size){140, 40},
+        0
+    );
+    menuAddButton(
+        &main_menu, "Settings",
+        (Point){10, 60}, (Size){140, 40},
+        0
+    );
+    menuAddButton(
+        &main_menu, "Quit",
+        (Point){10, 110}, (Size){140, 40},
+        &quitCallback
+    );
 }
 
 void menuAddButton(
-    Menu *menu, const char *text,
-    Point position, Size size
+    Menu *menu,
+    const char *text,
+    const Point position,
+    const Size size,
+    const on_click_fn on_click_callback
 )
 {
     ++menu->buttons_count;
@@ -29,13 +47,18 @@ void menuAddButton(
 
     Button *button = menu->buttons + (menu->buttons_count - 1);
 
-    button->text = calloc(strlen(text), sizeof(char));
+    button->text = calloc(strlen(text), sizeof(*button->text));
     strcpy(button->text, text);
 
     button->rect = getRect(position, size);
 
-    button->is_hovered = false;
-    button->is_pressed = false;
+    button->state = ButtonReleased;
+
+    button->palette[ButtonReleased] = gainsboro;
+    button->palette[ButtonHovered] = lightgray;
+    button->palette[ButtonPressed] = darkgray;
+
+    button->on_click = on_click_callback;
 }
 
 void menuClear(Menu *menu)
@@ -67,4 +90,10 @@ void menuMouseMove(Menu *menu, Point position)
     for (int i = 0; i < menu->buttons_count; ++i) {
         buttonMouseMove(menu->buttons + i, position);
     }
+}
+
+
+void quitCallback(void)
+{
+    destroyWindow(&main_window);
 }

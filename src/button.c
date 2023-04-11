@@ -1,36 +1,40 @@
 #include <stdio.h>
 
 #include "button.h"
-
-#include "color.h"
+#include "point.h"
 #include "collision.h"
 
 
-const Color default_color = {0xe0, 0xe0, 0xe0, 0xff};
-const Color hovered_color = {0xd0, 0xd0, 0xd0, 0xff};
-const Color pressed_color = {0xb0, 0xb0, 0xb0, 0xff};
-const Color border_color  = {0x70, 0x70, 0x70, 0xff};
-
-
-void buttonMouseLeftDown(Button *button, Point position)
+void buttonMouseLeftDown(Button *button, const Point pos)
 {
-    if (pointInRect(position, button->rect)) {
-        button->is_pressed = true;
-        printf("%s pressed.\n", button->text);
+    if (pointInRect(pos, &button->rect)) {
+        button->state = ButtonPressed;
     }
 }
 
-void buttonMouseLeftUp(Button *button, Point position)
+void buttonMouseLeftUp(Button *button, const Point pos)
 {
-    button->is_pressed = false;
+    if (button->state != ButtonPressed) return;
+
+    if (pointInRect(pos, &button->rect)) {
+        printf("%s pressed.\n", button->text);
+
+        if (button->on_click) {
+            button->on_click();
+        }
+    }
+
+    button->state = ButtonReleased;
 }
 
-void buttonMouseMove(Button *button, Point position)
+void buttonMouseMove(Button *button, const Point pos)
 {
-    if (pointInRect(position, button->rect)) {
-        button->is_hovered = true;
+    if (button->state == ButtonPressed) return;
+
+    if (pointInRect(pos, &button->rect)) {
+        button->state = ButtonHovered;
     }
     else {
-        button->is_hovered = false;
+        button->state = ButtonReleased;
     }
 }

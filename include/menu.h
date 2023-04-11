@@ -13,49 +13,85 @@
  * Structure which stores set of buttons related to each other.
  */
 typedef struct menu {
+    /**
+     * Total count of menu buttons.
+     */
     uint8_t buttons_count;
+
+    /**
+     * Array of menu buttons.
+     */
     Button *buttons;
 } Menu;
 
 
 /**
- * Fills @a main_menu menu with buttons.
+ * Fills main menu specified by \a main_menu with buttons.
  */
 void initMainMenu(void);
 
 
 /**
- * Creates new button from the given @a text, @a position
- * and @a size and adds it to the given @a menu.
+ * Creates new button from the given text, position, size
+ * and with the given callback function
+ * and adds it to the given menu.
+ * 
+ * \param menu menu to which button added.
+ * 
+ * \param[in] text text of added button.
+ * \param[in] pos position of added button.
+ * \param[in] size size of added button.
+ * \param[in] on_click_callback callback function of added button
+ *                              which called when button clicked.
  */
 void menuAddButton(
-    Menu *menu, const char *text,
-    Point position, Size size
+    Menu *menu,
+    const char *text,
+    const Point pos,
+    const Size size,
+    const on_click_fn on_click_callback
 );
 
 /**
- * Clears given @a menu from all its buttons.
+ * Clears menu from all its buttons.
+ * 
+ * \param menu menu which need to be cleared.
  */
 void menuClear(Menu *menu);
 
 
 /**
- * Function which is called after mouse left button press
- * at the given @a position and handles it for the given @a menu.
+ * Function which is called after mouse left button pressed
+ * at the given position and handles it for the given menu.
+ * 
+ * \param menu given menu.
+ * \param[in] pos point in which mouse moved.
  */
 void menuMouseLeftDown(Menu *menu, Point position);
 
 /**
  * Function which is called after mouse left button release
- * at the given @a position and handles it for the given @a menu.
+ * at the given position and handles it for the given menu.
+ * 
+ * \param menu given menu.
+ * \param[in] pos point in which mouse moved.
  */
 void menuMouseLeftUp(Menu *menu, Point position);
 
 /**
  * Function which is called after mouse move
- * to the given @a position and handles it for the given @a menu.
+ * to the given position and handles it for the given menu.
+ * 
+ * \param menu given menu.
+ * \param[in] pos point in which mouse moved.
  */
-void menuMouseMove(Menu *menu, Point position);
+void menuMouseMove(Menu *menu, const Point pos);
+
+
+/**
+ * Click callback for "Quit" button of main menu.
+ */
+void quitCallback(void);
 
 
 #endif  /* MENU_H_INCLUDED_ */

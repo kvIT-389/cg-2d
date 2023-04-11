@@ -2,23 +2,26 @@
 #define BUTTON_H_INCLUDED_
 
 
-#include <stdbool.h>
-
 #include "point.h"
 #include "rect.h"
 #include "color.h"
 
 
-extern const Color default_color;
-extern const Color hovered_color;
-extern const Color pressed_color;
-extern const Color border_color;
+typedef void (*on_click_fn)(void);
+
+
+typedef enum
+{
+    ButtonReleased,
+    ButtonHovered,
+    ButtonPressed
+} ButtonState;
 
 
 /**
  * Structure which stores data associated with some button
- * such as its rectangle and text and also buttons conditions
- * such as is it hovered or pressed.
+ * such as its text, rectangle and button state which are
+ * one of \ref ButtonState enum.
  */
 typedef struct button
 {
@@ -26,28 +29,39 @@ typedef struct button
 
     Rect rect;
 
-    bool is_hovered;
-    bool is_pressed;
+    ButtonState state;
+    Color palette[3];
+
+    on_click_fn on_click;
 } Button;
 
 
 /**
- * Function which is called after mouse left button press
- * at the given @a position and handles it for the given @a button.
+ * Function which is called after mouse left button pressed
+ * at the given position and handles it for the given button.
+ * 
+ * \param button given button.
+ * \param[in] pos point in which mouse moved.
  */
-void buttonMouseLeftDown(Button *button, Point position);
+void buttonMouseLeftDown(Button *button, const Point pos);
 
 /**
  * Function which is called after mouse left button release
- * at the given @a position and handles it for the given @a button.
+ * at the given position and handles it for the given button.
+ * 
+ * \param button given button.
+ * \param[in] pos point in which mouse moved.
  */
-void buttonMouseLeftUp(Button *button, Point position);
+void buttonMouseLeftUp(Button *button, const Point pos);
 
 /**
  * Function which is called after mouse move
- * to the given @a position and handles it for the given @a button.
+ * to the given position and handles it for the given button.
+ * 
+ * \param button given button.
+ * \param[in] pos point in which mouse moved.
  */
-void buttonMouseMove(Button *button, Point position);
+void buttonMouseMove(Button *button, const Point pos);
 
 
 #endif  /* BUTTON_H_INCLUDED_ */
