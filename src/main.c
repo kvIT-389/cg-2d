@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE);
 
     initWindow(
-        &main_window, "Rotating Hexagon",
+        &main_window, "OpenGL 2D",
         (Size){480, 480},
         (Point){200, 200}
     );

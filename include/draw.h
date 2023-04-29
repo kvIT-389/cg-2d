@@ -11,20 +11,11 @@
 #include "menu.h"
 
 
-extern double angle;
-extern double scale;
-
-
 /**
  * Current window main drawing function.
  * Called each time @a display function called.
  */
 void draw(void);
-
-/**
- * Draws RGB hexagon rotated on angle.
- */
-void drawHexagon(void);
 
 /**
  * Draws rectangle specified by @a rect

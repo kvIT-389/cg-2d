@@ -16,7 +16,7 @@ extern const _time_t update_delay;
 void update(int value);
 
 /**
- * Calls @a update function in the first time
+ * Calls @a update function for the first time
  * to run update loop.
  */
 void runUpdateLoop(void);
