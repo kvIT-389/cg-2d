@@ -16,17 +16,17 @@ void initMainMenu(void)
 {
     menuAddButton(
         &main_menu, "Start",
-        (Point){10, 10}, (Size){140, 40},
+        (Point){10, 10}, (Size){128, 32},
         0
     );
     menuAddButton(
         &main_menu, "Settings",
-        (Point){10, 60}, (Size){140, 40},
+        (Point){10, 60}, (Size){128, 32},
         0
     );
     menuAddButton(
         &main_menu, "Quit",
-        (Point){10, 110}, (Size){140, 40},
+        (Point){10, 110}, (Size){128, 32},
         &quitCallback
     );
 }
