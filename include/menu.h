@@ -49,7 +49,7 @@ void menuAddButton(
     const char *text,
     const Point pos,
     const Size size,
-    const on_click_fn on_click_callback
+    const action_fn on_click_callback
 );
 
 /**

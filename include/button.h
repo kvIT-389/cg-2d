@@ -7,7 +7,7 @@
 #include "color.h"
 
 
-typedef void (*on_click_fn)(void);
+typedef void (*action_fn)(void);
 
 
 typedef enum
@@ -32,7 +32,7 @@ typedef struct button
     ButtonState state;
     Color palette[3];
 
-    on_click_fn on_click;
+    action_fn on_click;
 } Button;
 
 

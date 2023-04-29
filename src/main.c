@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_TEXTURE_2D);
-    charsetLoad(&default_charset, "charsets/0.png");
+    charsetLoad(&default_charset, "charsets/comic_sans_ms_1024.png");
 
     initMainMenu();
 
