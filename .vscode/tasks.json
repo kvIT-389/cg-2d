@@ -1,8 +1,8 @@
 {
     "tasks": [
         {
-            "type": "cppbuild",
             "label": "OpenGL gcc build project",
+            "type": "cppbuild",
             "command": "gcc",
             "args": [
                 "-fdiagnostics-color=always",
@@ -13,7 +13,7 @@
                 // Include path
                 "-I${cwd}/include",
                 // Libraries
-                "-lGL", "-lGLU", "-lglut"
+                "-lGL", "-lGLU", "-lglut", "-lm"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
